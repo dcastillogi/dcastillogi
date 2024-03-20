@@ -1,5 +1,7 @@
 import client from "../../lib/prisma";
 
+export const prerender = false;
+
 export const GET = async ({params}: {params: {link: string}}) => {
     const link = await client.link.findUnique({
         where: {
