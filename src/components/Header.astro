@@ -1,0 +1,30 @@
+---
+import HCaptcha from '../components/HCaptcha';
+
+const {pathname} = Astro.url;
+
+---
+
+<header class="w-full">
+    <div class="max-w-7xl mx-auto px-6 py-4 mt-1">
+        <div class="flex justify-between items-center">
+            <nav>
+                <ul class="flex space-x-5">
+                    <li>
+                        <a href="/" class="underline underline-offset-4">Inicio</a>
+                    </li>
+                    <li>
+                        <a href="/" class="hover:underline underline-offset-4">Acerca de</a>
+                    </li>
+                    <li>
+                        <a href="/">Recursos</a>
+                    </li>
+                    <li>
+                        <a href="/">Publicaciones</a>
+                    </li>
+                </ul>
+            </nav>
+            <HCaptcha client:load isVerified={false} />
+        </div>
+    </div>
+</header>

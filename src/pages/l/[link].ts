@@ -20,6 +20,16 @@ export const GET = async ({params}: {params: {link: string}}) => {
             },
         }
     );
+    // if the link is found, increment the click count
+    await client.link.update({
+        where: {
+            id: link.id,
+        },
+        data: {
+            views: link.views + 1,
+        },
+    });
+
     // redirect to the link
     return new Response(null, {
         status: 302,
