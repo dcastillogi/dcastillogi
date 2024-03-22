@@ -1,0 +1,53 @@
+---
+import HERO from "../content/hero";
+---
+
+<section class="w-full py-1" role="heading">
+    <div class="lg:flex justify-between max-w-7xl px-6 mx-auto">
+        <div>
+            <h1 class="font-serif text-6xl lg:text-7xl xl:text-8xl font-bold">
+                {HERO.title}
+            </h1>
+            <p class="font-semibold text-lg ml-0.5">
+                {HERO.subtitle}
+            </p>
+            <div class="flex mt-2 gap-3">
+                {
+                    HERO.links.map((link) => {
+                        const Icon = link.icon;
+                        return <a href={link.link} target="_blank" rel="noopener noreferrer" class="flex gap-1.5 bg-accent-background text-accent hover:scale-105 transition-transform font-medium text-sm pl-3.5 pr-4 py-1.5 rounded-full items-center">
+                            <Icon className="h-4 w-auto" />
+                            {link.text}    
+                        </a>
+                    })
+                }
+            </div>
+        </div>
+        <div class="space-y-5 w-64 py-8 flex-shrink-0">
+            {
+                HERO.companies.map((company) => (
+                    <a
+                        class="flex gap-2"
+                        href={company.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <div class="flex-shrink-0">
+                            <img
+                                src={company.logo}
+                                alt={company.name}
+                                class="w-8 h-8"
+                            />
+                        </div>
+                        <div>
+                            <p class="text-xs leading-3">{company.role}</p>
+                            <p class="font-semibold leading-4">
+                                {company.name}
+                            </p>
+                        </div>
+                    </a>
+                ))
+            }
+        </div>
+    </div>
+</section>

@@ -1,65 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import DefaultLayout from "../layouts/Default.astro";
+import Hero from "../components/Hero.astro";
 ---
 
 <Layout title="Daniel Castillo | Desarrollador de soluciones web - Ingeniería de Sistemas">
     <DefaultLayout>
-        <section class="w-full py-1" role="heading">
-            <div class="lg:flex justify-between max-w-7xl px-6 mx-auto">
-                <div>
-                    <h1 class="font-serif text-6xl lg:text-7xl xl:text-8xl font-bold">
-                        Daniel Castillo
-                    </h1>
-                    <p class="font-semibold text-lg ml-0.5">
-                        Desarrollador de Soluciones Web | Ingeniero de Sistemas
-                    </p>
-                </div>
-                <div class="space-y-5 w-64 py-8 flex-shrink-0">
-                    <a
-                        class="flex gap-2"
-                        href="https://storend.com.co"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <div class="flex-shrink-0">
-                            <img
-                                src="/images/storend.webp"
-                                alt="storend.com.co"
-                                class="w-8 h-8"
-                            />
-                        </div>
-                        <div>
-                            <p class="text-xs leading-3">Desarrollador en</p>
-                            <p class="font-semibold leading-4">
-                                storend.com.co
-                            </p>
-                        </div>
-                    </a>
-                    <a
-                        class="flex gap-2"
-                        href="https://unal.edu.co"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <div class="flex-shrink-0">
-                            <img
-                                src="/images/unal.webp"
-                                alt="Universidad Nacional de Colombia"
-                                class="w-8 h-8"
-                            />
-                        </div>
-                        <div>
-                            <p class="text-xs leading-3">
-                                Ingeniería de Sistemas en
-                            </p>
-                            <p class="font-semibold leading-4">
-                                Universidad Nacional de Colombia
-                            </p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
+        <Hero />
     </DefaultLayout>
 </Layout>
