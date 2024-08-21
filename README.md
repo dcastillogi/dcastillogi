@@ -38,7 +38,7 @@
 
 ### Featured Projects
 
-| [![Storend: An event company ecosystem](https://i.ibb.co/CHQSGFg/STOREND.png)](https://storend.com.co)  | [![DM PRINT: Price based on ink coverage](https://i.ibb.co/S63krfw/DM-PRINT.png)](https://dmprintmed.com)  |
+| [![Storend: An event company ecosystem](https://i.ibb.co/CHQSGFg/STOREND.png)](https://storend.com.co)  | [![AHP Calculator - Electric Vehicle Selection](https://ahp.dcastillogi.com/images/screenshot.jpg)](https://github.com/dcastillogi/ahp)  |
 | --- | --- |
 | [![Imperium P: Digital printing](https://i.ibb.co/4jfP6y3/IMPERIUM-P.png)](https://imperiump.com) | |
 
