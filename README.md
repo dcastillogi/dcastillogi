@@ -28,6 +28,8 @@
 
 ### Cloud
 
+[![Cloudflare](https://img.shields.io/badge/cloudflare-black?style=for-the-badge&logo=cloudflare)](https://github.com/dcastillogi)
+[![Vercel](https://img.shields.io/badge/vercel-black?style=for-the-badge&logo=vercel)](https://github.com/dcastillogi)
 [![AWS Lambda](https://img.shields.io/badge/aws-lambda-FF9900?style=for-the-badge&logo=aws-lambda)](https://github.com/dcastillogi)
 [![AWS Amplify](https://img.shields.io/badge/aws-amplify-DD344C?style=for-the-badge&logo=aws-amplify)](https://github.com/dcastillogi)
 [![AWS Elastic Load Balancing](https://img.shields.io/badge/aws-load_balancer-8C4FFF?style=for-the-badge&logo=awselasticloadbalancing)](https://github.com/dcastillogi)
@@ -41,6 +43,7 @@
 [![AWS EC2](https://img.shields.io/badge/aws-ec2-FF9900?style=for-the-badge&logo=amazonec2)](https://github.com/dcastillogi)
 [![AWS SQS](https://img.shields.io/badge/aws-sqs-FF4F8B?style=for-the-badge&logo=amazonsqs)](https://github.com/dcastillogi)
 [![Amazon IAM](https://img.shields.io/badge/aws-iam-DD344C?style=for-the-badge&logo=amazoniam)](https://github.com/dcastillogi)
+
 
 
 ### Technologies & Frameworks
