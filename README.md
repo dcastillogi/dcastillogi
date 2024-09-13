@@ -17,24 +17,42 @@
 </p>
 
 ### Languages
-[![Python](https://img.shields.io/badge/python-black?style=for-the-badge&logo=python)](https://github.com/danielcgiraldo)
-[![TypeScript](https://img.shields.io/badge/javascript-black?style=for-the-badge&logo=typescript)](https://github.com/danielcgiraldo)
-[![SQL](https://img.shields.io/badge/sql-black?style=for-the-badge&logo=mysql)](https://github.com/danielcgiraldo)
+[![Python](https://img.shields.io/badge/python-black?style=for-the-badge&logo=python)](https://github.com/dcastillogi)
+[![TypeScript](https://img.shields.io/badge/javascript-black?style=for-the-badge&logo=typescript)](https://github.com/dcastillogi)
+[![SQL](https://img.shields.io/badge/sql-black?style=for-the-badge&logo=mysql)](https://github.com/dcastillogi)
 
 ### Data Modules
-[![Pandas](https://img.shields.io/badge/pandas-black?style=for-the-badge&logo=pandas)](https://github.com/danielcgiraldo)
-[![NumPy](https://img.shields.io/badge/numpy-black?style=for-the-badge&logo=numpy)](https://github.com/danielcgiraldo)
-[![Polars](https://img.shields.io/badge/polars-black?style=for-the-badge&logo=polars)](https://github.com/danielcgiraldo)
+[![Pandas](https://img.shields.io/badge/pandas-black?style=for-the-badge&logo=pandas)](https://github.com/dcastillogi)
+[![NumPy](https://img.shields.io/badge/numpy-black?style=for-the-badge&logo=numpy)](https://github.com/dcastillogi)
+[![Polars](https://img.shields.io/badge/polars-black?style=for-the-badge&logo=polars)](https://github.com/dcastillogi)
+
+### Cloud
+
+[![AWS Lambda](https://img.shields.io/badge/aws-lambda-FF9900?style=for-the-badge&logo=aws-lambda)](https://github.com/dcastillogi)
+[![AWS Amplify](https://img.shields.io/badge/aws-amplify-DD344C?style=for-the-badge&logo=aws-amplify)](https://github.com/dcastillogi)
+[![AWS Elastic Load Balancing](https://img.shields.io/badge/aws-load_balancer-8C4FFF?style=for-the-badge&logo=awselasticloadbalancing)](https://github.com/dcastillogi)
+[![AWS S3](https://img.shields.io/badge/aws-s3-569A31?style=for-the-badge&logo=amazons3)](https://github.com/dcastillogi)
+[![AWS RDS](https://img.shields.io/badge/aws-rds-4053D6?style=for-the-badge&logo=amazonrds)](https://github.com/dcastillogi)
+[![AWS SES](https://img.shields.io/badge/aws-ses-DD344C?style=for-the-badge&logo=amazonsimpleemailservice)](https://github.com/dcastillogi)
+[![AWS Cognito](https://img.shields.io/badge/aws-cognito-DD344C?style=for-the-badge&logo=amazoncognito)](https://github.com/dcastillogi)
+[![AWS Route 53](https://img.shields.io/badge/aws-route_53-8C4FFF?style=for-the-badge&logo=amazonroute53)](https://github.com/dcastillogi)
+[![AWS DynamoDB](https://img.shields.io/badge/aws-dynamodb-4053D6?style=for-the-badge&logo=amazondynamodb)](https://github.com/dcastillogi)
+[![AWS API Gateway](https://img.shields.io/badge/aws-api_gateway-FF4F8B?style=for-the-badge&logo=amazonapigateway)](https://github.com/dcastillogi)
+[![AWS EC2](https://img.shields.io/badge/aws-ec2-FF9900?style=for-the-badge&logo=amazonec2)](https://github.com/dcastillogi)
+[![AWS SQS](https://img.shields.io/badge/aws-sqs-FF4F8B?style=for-the-badge&logo=amazonsqs)](https://github.com/dcastillogi)
+[![Amazon IAM](https://img.shields.io/badge/aws-iam-DD344C?style=for-the-badge&logo=amazoniam)](https://github.com/dcastillogi)
+
 
 ### Technologies & Frameworks
-[![Django](https://img.shields.io/badge/django-black?style=for-the-badge&logo=django)](https://github.com/danielcgiraldo)
-[![NextJS](https://img.shields.io/badge/nextjs-black?style=for-the-badge&logo=nextjs)](https://github.com/danielcgiraldo)
-[![HTML5](https://img.shields.io/badge/html5-black?style=for-the-badge&logo=html5)](https://github.com/danielcgiraldo)
-[![CSS3](https://img.shields.io/badge/css3-black?style=for-the-badge&logo=css3)](https://github.com/danielcgiraldo)
+[![Django](https://img.shields.io/badge/django-black?style=for-the-badge&logo=django)](https://github.com/dcastillogi)
+[![Docker](https://img.shields.io/badge/docker-black?style=for-the-badge&logo=docker)](https://github.com/dcastillogi)
+[![NextJS](https://img.shields.io/badge/nextjs-black?style=for-the-badge&logo=nextjs)](https://github.com/dcastillogi)
+[![HTML5](https://img.shields.io/badge/html5-black?style=for-the-badge&logo=html5)](https://github.com/dcastillogi)
+[![CSS3](https://img.shields.io/badge/css3-black?style=for-the-badge&logo=css3)](https://github.com/dcastillogi)
 
 ### OS
-[![Linux](https://img.shields.io/badge/linux-black?style=for-the-badge&logo=Linux)](https://github.com/danielcgiraldo)
-[![MacOS](https://img.shields.io/badge/macos-black?style=for-the-badge&logo=macos)](https://github.com/danielcgiraldo)
+[![Linux](https://img.shields.io/badge/linux-black?style=for-the-badge&logo=Linux)](https://github.com/dcastillogi)
+[![MacOS](https://img.shields.io/badge/macos-black?style=for-the-badge&logo=macos)](https://github.com/dcastillogi)
 
 ### Featured Projects
 
