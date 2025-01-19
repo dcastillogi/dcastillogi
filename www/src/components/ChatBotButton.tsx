@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AWSIcon, MagicIcon } from "../lib/icons";
-import { BorderBeam } from "./ui/BorderBean";
 import { ParticleAura } from "./ui/ParticleAura";
 
 const items = [
@@ -52,11 +51,10 @@ export default function ChatBotButton() {
                                 </div>
                                 <MagicIcon className="w-6 h-6 text-orange relative z-10" />
                             </button>
-                            <BorderBeam size={100} duration={8} delay={5} />
                         </div>
 
                         <div className="flex justify-end mt-1 z-10 relative">
-                            <p className="text-sm text-secondary">
+                            <p className="text-sm text-secondary bg-white">
                                 Powered by{" "}
                                 <a
                                     href="https://aws.amazon.com/ai/generative-ai/nova/"
