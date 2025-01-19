@@ -144,6 +144,12 @@ export class CDKStack extends cdk.Stack {
             }
         );
 
+        const contentBucket = new s3.Bucket(this, "ContentBucket", {
+            bucketName: `${props.config.project}-content-bucket`,
+            blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+            encryption: s3.BucketEncryption.S3_MANAGED,
+        });
+
         const distribution = new cloudfront.Distribution(
             this,
             "AppDistribution",
@@ -156,6 +162,18 @@ export class CDKStack extends cdk.Stack {
                         cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
                     cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
                     allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
+                },
+                additionalBehaviors: {
+                    "/content/*": {
+                        origin: origins.S3BucketOrigin.withOriginAccessControl(
+                            contentBucket
+                        ),
+                        viewerProtocolPolicy:
+                            cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+                        cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
+                        allowedMethods:
+                            cloudfront.AllowedMethods.ALLOW_GET_HEAD,
+                    },
                 },
                 defaultRootObject: "index.html",
                 certificate: domainCert,
@@ -207,6 +225,13 @@ export class CDKStack extends cdk.Stack {
                     ),
             }
         );
+
+        // Content Feature
+        const contentTable = new dynamodb.Table(this, "ContentTable", {
+            partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
+            billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+            tableName: `${props.config.project}-content-table`,
+        });
 
         const apiGateway = new cdk.aws_apigateway.RestApi(this, "ApiGateway", {
             restApiName: `${props.config.project}-api-gateway`,
@@ -275,7 +300,7 @@ export class CDKStack extends cdk.Stack {
                     "description",
                     "name",
                     "url",
-                    "order"
+                    "order",
                 ],
             },
         };
@@ -286,7 +311,7 @@ export class CDKStack extends cdk.Stack {
             contentType: "application/json",
             description: "Badges model",
             modelName: "BadgesModel",
-            schema: badgesModelJsonSchema
+            schema: badgesModelJsonSchema,
         });
 
         // Add GET method
@@ -308,10 +333,10 @@ export class CDKStack extends cdk.Stack {
                                 "'application/json'",
                         },
                         responseTemplates: {
-                            'application/json': '$input.json("$")'
-                        }
-                    }
-                ]
+                            "application/json": '$input.json("$")',
+                        },
+                    },
+                ],
             }),
             {
                 methodResponses: [
@@ -330,7 +355,7 @@ export class CDKStack extends cdk.Stack {
                                 true,
                             "method.response.header.Content-Type": true,
                         },
-                    }
+                    },
                 ],
             }
         );
