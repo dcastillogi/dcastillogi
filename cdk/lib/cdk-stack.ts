@@ -1,4 +1,3 @@
-
 import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
 import { ConfigProps } from "../shared/types";
@@ -12,6 +11,9 @@ import * as route53 from "aws-cdk-lib/aws-route53";
 import * as certificatemanager from "aws-cdk-lib/aws-certificatemanager";
 import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
+import * as lambda from "aws-cdk-lib/aws-lambda";
+import * as iam from "aws-cdk-lib/aws-iam";
+import * as path from "path";
 
 export class CDKStack extends cdk.Stack {
     constructor(
@@ -27,7 +29,7 @@ export class CDKStack extends cdk.Stack {
         const frontendBucket = new s3.Bucket(this, "FrontendBucket", {
             bucketName: `${props.config.project}-frontend-bucket`,
             blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
-            encryption: s3.BucketEncryption.S3_MANAGED
+            encryption: s3.BucketEncryption.S3_MANAGED,
         });
 
         // Pipeline
@@ -96,7 +98,7 @@ export class CDKStack extends cdk.Stack {
                 templatePath: buildCdkOutput.atPath(
                     `${props.config.project}Stack.template.json`
                 ),
-                adminPermissions: true
+                adminPermissions: true,
             });
 
         pipeline.addStage({
@@ -124,7 +126,10 @@ export class CDKStack extends cdk.Stack {
             }
         );
 
-        const domains = [props.config.domainName, `www.${props.config.domainName}`]
+        const domains = [
+            props.config.domainName,
+            `www.${props.config.domainName}`,
+        ];
 
         const domainCert = new certificatemanager.Certificate(
             this,
@@ -139,18 +144,24 @@ export class CDKStack extends cdk.Stack {
             }
         );
 
-        const distribution = new cloudfront.Distribution(this, "AppDistribution", {
-            defaultBehavior: {
-                origin: origins.S3BucketOrigin.withOriginAccessControl(frontendBucket),
-                viewerProtocolPolicy:
-                    cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-                cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
-                allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD
-            },
-            defaultRootObject: "index.html",
-            certificate: domainCert,
-            domainNames: domains,
-        });
+        const distribution = new cloudfront.Distribution(
+            this,
+            "AppDistribution",
+            {
+                defaultBehavior: {
+                    origin: origins.S3BucketOrigin.withOriginAccessControl(
+                        frontendBucket
+                    ),
+                    viewerProtocolPolicy:
+                        cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+                    cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
+                    allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
+                },
+                defaultRootObject: "index.html",
+                certificate: domainCert,
+                domainNames: domains,
+            }
+        );
 
         for (const domain of domains) {
             new route53.ARecord(this, `ARecord${domain}Cloudfront`, {
@@ -162,15 +173,182 @@ export class CDKStack extends cdk.Stack {
             });
         }
 
+        // Badges Feature
+
         const badgesTable = new dynamodb.Table(this, "BadgesTable", {
             partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
             billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
-            tableName : `${props.config.project}-badges-table`
+            tableName: `${props.config.project}-badges-table`,
+        });
+
+        const badgesLambda = new lambda.Function(this, "BadgesLambda", {
+            runtime: lambda.Runtime.NODEJS_LATEST,
+            handler: "index.handler",
+            code: lambda.Code.fromAsset(
+                path.join(__dirname, "../../lambdas/badges-lambda")
+            ),
+            environment: {
+                TABLE_NAME: badgesTable.tableName,
+            },
+            functionName: `${props.config.project}-badges-lambda`,
+        });
+
+        badgesTable.grantReadData(badgesLambda);
+
+        // API Gateway
+        const apiDomainCert = new certificatemanager.Certificate(
+            this,
+            "ApiCert",
+            {
+                domainName: `api.${props.config.domainName}`,
+                validation:
+                    certificatemanager.CertificateValidation.fromDns(
+                        hostedZone
+                    ),
+            }
+        );
+
+        const apiGateway = new cdk.aws_apigateway.RestApi(this, "ApiGateway", {
+            restApiName: `${props.config.project}-api-gateway`,
+            description: "API Gateway for the project",
+            endpointConfiguration: {
+                types: [cdk.aws_apigateway.EndpointType.REGIONAL],
+            },
+            deployOptions: {
+                stageName: "v1",
+            },
+            domainName: {
+                domainName: `api.${props.config.domainName}`,
+                certificate: apiDomainCert,
+                endpointType: cdk.aws_apigateway.EndpointType.REGIONAL,
+            },
+            defaultCorsPreflightOptions: {
+                allowOrigins: cdk.aws_apigateway.Cors.ALL_ORIGINS,
+                allowMethods: cdk.aws_apigateway.Cors.ALL_METHODS,
+                allowHeaders: cdk.aws_apigateway.Cors.DEFAULT_HEADERS,
+            },
+        });
+
+        apiGateway.domainName!.addBasePathMapping(apiGateway, {
+            basePath: "v1",
+            stage: apiGateway.deploymentStage,
+        });
+
+        // Create badges resource and method
+        const badgesResource = apiGateway.root.addResource("badges");
+
+        const badgesModelJsonSchema = {
+            type: cdk.aws_apigateway.JsonSchemaType.ARRAY,
+            items: {
+                type: cdk.aws_apigateway.JsonSchemaType.OBJECT,
+                properties: {
+                    id: {
+                        type: cdk.aws_apigateway.JsonSchemaType.STRING,
+                    },
+                    issuer: {
+                        type: cdk.aws_apigateway.JsonSchemaType.STRING,
+                    },
+                    issued_at_date: {
+                        type: cdk.aws_apigateway.JsonSchemaType.STRING,
+                    },
+                    image_url: {
+                        type: cdk.aws_apigateway.JsonSchemaType.STRING,
+                    },
+                    description: {
+                        type: cdk.aws_apigateway.JsonSchemaType.STRING,
+                    },
+                    name: {
+                        type: cdk.aws_apigateway.JsonSchemaType.STRING,
+                    },
+                    url: {
+                        type: cdk.aws_apigateway.JsonSchemaType.STRING,
+                    },
+                    order: {
+                        type: cdk.aws_apigateway.JsonSchemaType.NUMBER,
+                    },
+                },
+                required: [
+                    "id",
+                    "issuer",
+                    "issued_at_date",
+                    "image_url",
+                    "description",
+                    "name",
+                    "url",
+                    "order"
+                ],
+            },
+        };
+
+        // Create model for badges array response
+        const badgesModel = new cdk.aws_apigateway.Model(this, "BadgesModel", {
+            restApi: apiGateway,
+            contentType: "application/json",
+            description: "Badges model",
+            modelName: "BadgesModel",
+            schema: badgesModelJsonSchema
+        });
+
+        // Add GET method
+        badgesResource.addMethod(
+            "GET",
+            new cdk.aws_apigateway.LambdaIntegration(badgesLambda, {
+                proxy: false,
+                integrationResponses: [
+                    {
+                        statusCode: "200",
+                        responseParameters: {
+                            "method.response.header.Access-Control-Allow-Origin":
+                                "'*'",
+                            "method.response.header.Access-Control-Allow-Methods":
+                                "'GET,OPTIONS'",
+                            "method.response.header.Access-Control-Allow-Headers":
+                                "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+                            "method.response.header.Content-Type":
+                                "'application/json'",
+                        },
+                        responseTemplates: {
+                            'application/json': '$input.json("$")'
+                        }
+                    }
+                ]
+            }),
+            {
+                methodResponses: [
+                    {
+                        // Success response definition
+                        statusCode: "200",
+                        responseModels: {
+                            "application/json": badgesModel,
+                        },
+                        responseParameters: {
+                            "method.response.header.Access-Control-Allow-Origin":
+                                true,
+                            "method.response.header.Access-Control-Allow-Methods":
+                                true,
+                            "method.response.header.Access-Control-Allow-Headers":
+                                true,
+                            "method.response.header.Content-Type": true,
+                        },
+                    }
+                ],
+            }
+        );
+
+        new route53.ARecord(this, `ARecord${props.config.project}ApiGateway`, {
+            recordName: `api.${props.config.domainName}`,
+            zone: hostedZone,
+            target: route53.RecordTarget.fromAlias(
+                new route53Targets.ApiGateway(apiGateway)
+            ),
         });
 
         // Adding tags as resource group
         if (props.config.applicationTagValue) {
-            cdk.Tags.of(this).add("awsApplication", props.config.applicationTagValue);
+            cdk.Tags.of(this).add(
+                "awsApplication",
+                props.config.applicationTagValue
+            );
         }
     }
 }
