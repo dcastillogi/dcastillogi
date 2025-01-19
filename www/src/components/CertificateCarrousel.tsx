@@ -44,7 +44,7 @@ export default function CertificateCarrousel() {
 
     if (!error && !(!isLoading && !badges.length))
         return (
-            <div className="mt-8">
+            <div className="mt-8 z-10">
                 <h2 className="text-xl text-center mb-4 text-secondary">
                     Fueled by Curiosity, Driven to Build Solutions
                 </h2>

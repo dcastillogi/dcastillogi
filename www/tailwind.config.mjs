@@ -25,4 +25,5 @@ export default {
         },
     },
     plugins: [],
+    safelist: ["pointer-events-none", "rounded-full"]
 }
