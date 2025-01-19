@@ -2,9 +2,12 @@
 import { Image } from "astro:assets";
 import { AWSIcon } from "../lib/icons";
 import GridPattern from "./GridPattern.astro";
+import CertificateCarrousel from "./CertificateCarrousel.tsx";
+import AIContext from "./AIContext";
+import ChatBotButton from "./ChatBotButton";
 ---
 
-<header class="relative">
+<header>
     <GridPattern />
     <div class="container mx-auto px-4 z-10 relative mt-24">
         <div class="flex flex-col items-center">
@@ -20,10 +23,14 @@ import GridPattern from "./GridPattern.astro";
                 Cloud Infrastructure
             </span>
             <p class="text-7xl font-semibold text-center mt-4">
-                Shaping <strong class="text-orange font-semibold">Tomorrow</strong> Through <strong class="text-orange font-semibold">Cloud</strong> Innovation
+                Shaping <strong class="text-orange font-semibold"
+                    >Tomorrow</strong
+                > Through <strong class="text-orange font-semibold"
+                    >Cloud</strong
+                > Innovation
             </p>
             <h1 class="text-3xl text-center text-secondary mt-4">
-                Cloud Analyst Trainee @<a
+                Cloud Analyst Trainee <a
                     href="https://blend360.com/"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -32,7 +39,7 @@ import GridPattern from "./GridPattern.astro";
                         width={200}
                         height={41}
                         alt="Blend360"
-                        src="/images/blend360_icon.jpeg"
+                        src="https://dcastillogi.com/content/images/blend360_icon.jpeg"
                         class="inline h-8 -mt-1 w-auto"
                     />
                 </a>, Computer Engineer <a
@@ -44,11 +51,15 @@ import GridPattern from "./GridPattern.astro";
                         width={200}
                         height={85}
                         alt="Universidad Nacional de Colombia"
-                        src="/images/unal_icon.jpeg"
+                        src="https://dcastillogi.com/content/images/unal_icon.jpeg"
                         class="inline h-8 -mt-1 w-auto"
                     />
                 </a>
             </h1>
+            <CertificateCarrousel client:only />
+            <AIContext client:only>
+                <ChatBotButton client:only />
+            </AIContext>
         </div>
     </div>
 </header>
