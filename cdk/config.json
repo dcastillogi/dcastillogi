@@ -1,0 +1,13 @@
+{
+    "project": "dcastillogi",
+    "connectionArn": "arn:aws:codeconnections:us-east-2:221082215749:connection/c53917d8-80dc-4dec-b54b-7d5f05fde466",
+    "github": {
+        "owner": "dcastillogi",
+        "repo": "dcastillogi",
+        "branch": "main"
+    },
+    "domainName": "dcastillogi.com",
+    "hostedZoneId": "Z09651062R2BZH87H1GSV",
+    "zoneName": "dcastillogi.com",
+    "applicationTagValue": "arn:aws:resource-groups:us-east-1:221082215749:group/dcastillogi/0e8qc68i02sit5scybrnu7t0id"
+}

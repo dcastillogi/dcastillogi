@@ -1,0 +1,32 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+    commands:
+      - echo "Installing dependencies..."
+      - npm install --prefix www
+      - npm install --prefix cdk
+      - npm install -g aws-cdk@latest
+  build:
+    commands:
+      - echo "Astro build started on $(date)"
+      - npm run build --prefix www
+      - echo "CDK synth started on $(date)"
+      - cd cdk && cdk synth
+cache:
+  paths:
+    - 'www/node_modules/**/*'
+    - 'cdk/node_modules/**/*'
+
+artifacts:
+  secondary-artifacts:
+    www:
+      base-directory: www/dist
+      files:
+        - '**/*'
+    cdk:
+      base-directory: cdk/cdk.out
+      files:
+        - '**/*'
