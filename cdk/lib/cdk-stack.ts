@@ -11,6 +11,7 @@ import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as certificatemanager from "aws-cdk-lib/aws-certificatemanager";
 import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
+import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 
 export class CDKStack extends cdk.Stack {
     constructor(
@@ -160,6 +161,12 @@ export class CDKStack extends cdk.Stack {
                 ),
             });
         }
+
+        const badgesTable = new dynamodb.Table(this, "BadgesTable", {
+            partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
+            billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+            tableName : `${props.config.project}-badges-table`
+        });
 
         // Adding tags as resource group
         if (props.config.applicationTagValue) {
