@@ -25,7 +25,7 @@ export default function ChatBotButton() {
     }, []);
 
     return (
-        <div className="max-w-4xl -mt-6 -mb-12 mx-auto w-full">
+        <div className="max-w-4xl -mt-8 -mb-16 mx-auto w-full">
             <ParticleAura>
                 <div className="w-full max-w-2xl mx-auto relative py-24">
                     <p className="text-center text-lg mb-2 text-secondary font-light">

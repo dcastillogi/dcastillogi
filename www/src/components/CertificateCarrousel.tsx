@@ -44,15 +44,15 @@ export default function CertificateCarrousel() {
 
     if (!error && !(!isLoading && !badges.length))
         return (
-            <div className="mt-8 z-10">
-                <h2 className="text-xl text-center mb-4 text-secondary">
+            <div className="mt-12 z-10">
+                <h2 className="text-xl text-center mb-6 text-secondary">
                     Fueled by Curiosity, Driven to Build Solutions
                 </h2>
                 {isLoading ? (
-                    <div className="w-screen flex -ml-4 items-center justify-center max-w-4xl mx-auto">
+                    <div className="w-screen flex -ml-4 items-center justify-center max-w-5xl mx-auto">
                         {[...Array(5)].map((_, index) => (
                             <div
-                                className="flex-[0_0_20%] min-w-0 pl-4"
+                                className="flex-[0_0_16.66%] min-w-0 pl-4"
                                 key={index}
                             >
                                 <span className="aspect-square block w-full animate-pulse bg-gray-100"></span>

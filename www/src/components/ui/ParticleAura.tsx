@@ -26,7 +26,7 @@ export const ParticleAura: React.FC<ParticleAuraProps> = ({ children }) => {
     if (!particleContainerRef.current || !buttonRef.current || !containerRef.current) return null as any;
 
     const element = document.createElement('div');
-    element.className = 'absolute pointer-events-none rounded-full bg-orange';
+    element.className = 'absolute pointer-events-none rounded-full bg-orange/50';
     particleContainerRef.current.appendChild(element);
 
     // Get button and container positions relative to the particle container
