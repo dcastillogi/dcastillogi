@@ -14,6 +14,9 @@
         <img src="https://img.shields.io/badge/Email-EA4335?logo=gmail&logoColor=fff" alt="LinkedIn">
     </a>
     <br><br>
+    <a href="https://www.credly.com/badges/7a252c34-207c-459b-be20-941b704dfd57">
+        <img src="https://images.credly.com/size/340x340/images/4d4693bb-530e-4bca-9327-de07f3aa2348/image.png" width="200" height="200" alt="AWS Cloud Practitioner">
+    </a>
     <a href="https://www.credly.com/badges/dd17f5c2-a9a7-44d7-9e02-b12ec3a309f1/">
         <img src="https://images.credly.com/size/340x340/images/00634f82-b07f-4bbd-a6bb-53de397fc3a6/image.png" width="200" height="200" alt="AWS Cloud Practitioner">
     </a>
